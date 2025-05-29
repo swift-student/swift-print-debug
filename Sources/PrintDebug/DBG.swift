@@ -1,5 +1,6 @@
 import CustomDump
 
+/// This function is not meant to be called directly, instead you should use the `#dbg`macro.
 @discardableResult
 public func _dbg<each T>(
     _ values: repeat each T,
