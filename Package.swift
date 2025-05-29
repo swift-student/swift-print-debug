@@ -20,6 +20,8 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/swiftlang/swift-syntax.git", from: "600.0.0-latest"),
+        .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "1.3.3"),
+        .package(url: "https://github.com/pointfreeco/swift-macro-testing", from: "0.5.2"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -34,7 +36,10 @@ let package = Package(
         ),
 
         // Library that exposes a macro as part of its API, which is used in client programs.
-        .target(name: "PrintDebug", dependencies: ["PrintDebugMacros"]),
+        .target(name: "PrintDebug", dependencies: [
+            .product(name: "CustomDump", package: "swift-custom-dump"),
+            "PrintDebugMacros"
+        ]),
 
         // A client of the library, which is able to use the macro in its own code.
         .executableTarget(name: "PrintDebugClient", dependencies: ["PrintDebug"]),
@@ -43,6 +48,7 @@ let package = Package(
         .testTarget(
             name: "PrintDebugTests",
             dependencies: [
+                .product(name: "MacroTesting", package: "swift-macro-testing"),
                 "PrintDebugMacros",
                 .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax"),
             ]
