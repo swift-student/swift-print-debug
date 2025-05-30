@@ -5,7 +5,7 @@ A Swift debugging library that provides Rust-inspired debugging tools.
 ## Features
 
 - **`#dbg` Macro**: Rust-inspired debugging macro that prints values with source location context
-- **`.inspect()` Method**: Fluent debugging method for method chaining scenarios
+- **`inspect` Method**: Fluent debugging method for method chaining scenarios
 - **Source Location Tracking**: Shows file, function, and line number information
 - **Beautiful Output**: Uses [CustomDump](https://github.com/pointfreeco/swift-custom-dump) for structured, readable output
 - **Non-intrusive**: Returns values unchanged, allowing inline debugging without breaking code flow
