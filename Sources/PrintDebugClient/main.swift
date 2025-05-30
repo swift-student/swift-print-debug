@@ -30,6 +30,14 @@ print("******* Basic Usage *******\n")
 let numbers = [1, 2, 3, 4, 5]
 #dbg(numbers, numbers.count)
 
+func calculate(_ x: Int, _ y: Int) -> Int {
+    let result = x * y + 10
+    #dbg(x, y, result)
+    return result
+}
+
+let calcResult = calculate(5, 3)
+
 print("\n******* Inline Usage (returns values) *******\n")
 
 let doubled = #dbg(numbers.last! * 2)
@@ -37,7 +45,6 @@ let (a, b) = #dbg(numbers.first, numbers.last)
 
 let result = #dbg(numbers)
     .filter { $0 > 2 }
-    .map { #dbg($0 * 2) }
 
 print("\n******* Custom Types *******\n")
 
@@ -57,16 +64,6 @@ let optional: String? = "test"
 
 let data = ["apple": 5, "banana": 3]
 #dbg(data.values.reduce(0, +))
-
-print("\n******* In Function *******\n")
-
-func calculate(_ x: Int, _ y: Int) -> Int {
-    let result = x * y + 10
-    #dbg(x, y, result) // prints "...in calculate(_:_:)..."
-    return result
-}
-
-let calcResult = calculate(5, 3)
 
 print("\n******* Long Function Signature *******\n")
 
