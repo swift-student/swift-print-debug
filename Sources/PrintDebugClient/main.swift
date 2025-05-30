@@ -106,7 +106,6 @@ let inspectResult = [1, 2, 3, 4, 5]
 
 print("\n******* Inspect Optional *******\n")
 
-// Optional flatMap chaining
 let numberString: String? = "42"
 let parsedAndDoubled = numberString
     .inspect("input string")
@@ -121,23 +120,3 @@ let userProfile = user.fetchProfile()
     .inspect("user profile result")
     .map { $0.uppercased() }
     .inspect("shouting profile")
-
-// MARK: - Usage Guidelines
-
-print("\n******* Usage Guidelines *******\n")
-
-// Use #dbg for:
-// - Quick debugging of expressions and variables
-// - Multi-value debugging in a single call
-// - When you want to see the actual expression text
-let quickDebug = #dbg(user.name.count, products.count)
-
-// Use .inspect() for:
-// - Method chaining scenarios
-// - Functional programming pipelines
-// - When you don't want to break the flow of your code
-let pipelineDebug = [1, 2, 3]
-    .inspect("start")
-    .compactMap { $0 > 1 ? $0 * 2 : nil }
-    .inspect("transformed")
-    .reduce(0, +)
