@@ -104,17 +104,6 @@ let result = [1, 2, 3, 4, 5]
 - **Optional**: Debug optional values in chains
 - **Result**: Debug Result types in error handling flows
 
-## Requirements
-
-- iOS 13.0+ / macOS 10.15+ / tvOS 13.0+ / watchOS 6.0+
-- Swift 6.0+
-- Xcode 15.0+
-
-## Dependencies
-
-- [swift-syntax](https://github.com/swiftlang/swift-syntax) - For macro implementation
-- [swift-custom-dump](https://github.com/pointfreeco/swift-custom-dump) - For beautiful output formatting
-
 ## When to Use Each Tool
 
 ### Use `#dbg` for:
@@ -127,6 +116,21 @@ let result = [1, 2, 3, 4, 5]
 - Method chaining scenarios
 - Functional programming pipelines
 - When you don't want to break the flow of your code
+
+## Examples
+
+For more comprehensive examples of usage, see [`Sources/PrintDebugClient/main.swift`](Sources/PrintDebugClient/main.swift).
+
+## Requirements
+
+- iOS 13.0+ / macOS 10.15+ / tvOS 13.0+ / watchOS 6.0+
+- Swift 6.0+
+- Xcode 15.0+
+
+## Dependencies
+
+- [swift-syntax](https://github.com/swiftlang/swift-syntax) - For macro implementation
+- [swift-custom-dump](https://github.com/pointfreeco/swift-custom-dump) - For beautiful output formatting
 
 ## License
 
