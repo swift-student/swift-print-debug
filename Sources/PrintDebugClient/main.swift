@@ -1,15 +1,27 @@
 import PrintDebug
 
-/// PrintDebug Example Client
-///
-/// This file demonstrates various ways to use the #dbg macro.
-/// Key features:
-/// - Returns the same values passed to it (transparent)
-/// - Can be used inline in expressions  
-/// - Supports multiple arguments
-/// - Shows file, function, and line in output
+// # PrintDebug Examples
+//
+// This file demonstrates the core PrintDebug tools for Swift development debugging.
+// PrintDebug provides two main debugging utilities:
+//
+// ## #dbg Macro
+// A Rust-inspired debugging macro that prints values with source location context.
+// - **Transparent**: Returns the same values passed to it (usable inline)
+// - **Multi-argument**: Supports debugging multiple values simultaneously
+// - **Context-aware**: Shows file, function, and line number information
+// - **Expression-preserving**: Can wrap any expression without changing behavior
+//
+// ## .inspect() Method
+// A fluent debugging method for method chaining scenarios.
+// - **Chainable**: Works seamlessly in fluent APIs and method chains
+// - **Type-aware**: Available on Sequence, Optional, and Result types
+// - **Non-intrusive**: Doesn't break existing code flow
+// - **Location-tracking**: Provides same context information as #dbg
+//
+// Both tools use CustomDump from Point-Free for beautiful, structured output.
 
-// MARK: - Basic Usage
+// MARK: DBG
 
 print("******* Basic Usage *******\n")
 
@@ -18,10 +30,7 @@ print("******* Basic Usage *******\n")
 let numbers = [1, 2, 3, 4, 5]
 #dbg(numbers, numbers.count)
 
-
-// MARK: - Inline Usage (returns values)
-
-print("\n******* Inline Usage (returns valuds) *******\n")
+print("\n******* Inline Usage (returns values) *******\n")
 
 let doubled = #dbg(numbers.last! * 2)
 let (a, b) = #dbg(numbers.first, numbers.last)
@@ -29,8 +38,6 @@ let (a, b) = #dbg(numbers.first, numbers.last)
 let result = #dbg(numbers)
     .filter { $0 > 2 }
     .map { #dbg($0 * 2) }
-
-// MARK: - Custom Types
 
 print("\n******* Custom Types *******\n")
 
@@ -43,8 +50,6 @@ let products = [
 ]
 #dbg(products.filter { $0.inStock })
 
-// MARK: - Optionals
-
 print("\n******* Optionals *******\n")
 
 let optional: String? = "test"
@@ -52,8 +57,6 @@ let optional: String? = "test"
 
 let data = ["apple": 5, "banana": 3]
 #dbg(data.values.reduce(0, +))
-
-// MARK: - In Function
 
 print("\n******* In Function *******\n")
 
@@ -64,3 +67,80 @@ func calculate(_ x: Int, _ y: Int) -> Int {
 }
 
 let calcResult = calculate(5, 3)
+
+print("\n******* Long Function Signature *******\n")
+
+// Function signatures that are longer than 50 characters are trimmed so that only the function name is displayed.
+
+func processUserDataWithValidationAndTransformation(
+    userData: User,
+    validationRules: [String: Any],
+    transformationOptions: [String: Bool],
+    outputFormat: String,
+    includeMetadata: Bool = true,
+    debugMode: Bool = false
+) -> [String: Any] {
+    let result: [String: Any] = [
+        "processed": true,
+        "user": userData.name,
+        "format": outputFormat
+    ]
+    #dbg(userData, validationRules, result)
+    return result
+}
+
+let longResult = processUserDataWithValidationAndTransformation(
+    userData: user,
+    validationRules: ["age": "positive"],
+    transformationOptions: ["uppercase": true],
+    outputFormat: "json"
+)
+
+// MARK: - Inspect
+
+print("\n******* Inspect Sequence *******\n")
+
+let inspectResult = [1, 2, 3, 4, 5]
+    .inspect("original array")
+    .filter { $0 > 2 }
+    .inspect("after filter")
+    .map { $0 * 2 }
+    .inspect("after map")
+
+print("\n******* Inspect Optional *******\n")
+
+// Optional flatMap chaining
+let numberString: String? = "42"
+let parsedAndDoubled = numberString
+    .inspect("input string")
+    .flatMap { Int($0) }
+    .inspect("parsed to int")
+    .map { $0 * 2 }
+    .inspect("doubled result")
+
+print("\n******* Inspect Result *******\n")
+
+let userProfile = user.fetchProfile()
+    .inspect("user profile result")
+    .map { $0.uppercased() }
+    .inspect("shouting profile")
+
+// MARK: - Usage Guidelines
+
+print("\n******* Usage Guidelines *******\n")
+
+// Use #dbg for:
+// - Quick debugging of expressions and variables
+// - Multi-value debugging in a single call
+// - When you want to see the actual expression text
+let quickDebug = #dbg(user.name.count, products.count)
+
+// Use .inspect() for:
+// - Method chaining scenarios
+// - Functional programming pipelines
+// - When you don't want to break the flow of your code
+let pipelineDebug = [1, 2, 3]
+    .inspect("start")
+    .compactMap { $0 > 1 ? $0 * 2 : nil }
+    .inspect("transformed")
+    .reduce(0, +)

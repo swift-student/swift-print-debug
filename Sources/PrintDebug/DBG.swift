@@ -9,12 +9,13 @@ public func _dbg<each T>(
     line: Int = #line,
     function: StaticString = #function
 ) -> (repeat each T) {
-    print("🔍 \(file) in \(function), line \(line):")
+    printLocation(file: file, line: line, function: function)
     var index = 0
     for value in repeat each values {
         customDump(value, name: index < labels.count ? labels[index] : nil)
         index += 1
     }
+    print("")
     return (repeat each values)
 }
 
