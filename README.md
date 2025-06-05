@@ -134,7 +134,7 @@ For more comprehensive examples of usage, see [`Sources/PrintDebugClient/main.sw
 
 ## License
 
-PrintDebug is available under the Apache License, Version 2.0 - see the [LICENSE](LISCENCE) file for details.
+PrintDebug is available under the Apache License, Version 2.0 - see the [LICENSE](LICENSE) file for details.
 
 ## Contributing
 
