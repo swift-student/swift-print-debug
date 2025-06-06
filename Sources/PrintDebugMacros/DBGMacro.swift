@@ -40,17 +40,13 @@ public struct DBGMacro: ExpressionMacro {
             .joined(separator: ", ")
 
         let labelsList = argumentExpressions
-            .map(makeLabel)
+            .map { "#\"\($0)\"#" }
             .joined(separator: ", ")
 
         return "_dbg(\(raw: argumentList), labels: \(raw: labelsList))"
     }
 
-    private static func makeLabel(from expression: ExprSyntax) -> String {
-        let exprString = "\(expression)".replacingOccurrences(of: "\"", with: "\\\"")
-        return "\"\(exprString)\""
-    }
-    
+
 }
 
 @main
